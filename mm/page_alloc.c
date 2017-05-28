@@ -2432,8 +2432,12 @@ __alloc_pages_high_priority(gfp_t gfp_mask, unsigned int order,
 	return page;
 }
 
+#ifdef CONFIG_ANDROID_LOW_MEMORY_KILLER_CONSIDER_SWAP
+void wake_all_kswapds(unsigned int order,
+#else
 static inline
 void wake_all_kswapd(unsigned int order, struct zonelist *zonelist,
+#endif
 						enum zone_type high_zoneidx,
 						enum zone_type classzone_idx)
 {
